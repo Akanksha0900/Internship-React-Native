@@ -1,17 +1,18 @@
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import { useState } from "react";
 
+import Gettingstarted from "./components/Gettingstarted";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+
 export default function App() {
-  const [showPage, setShowPage] = useState("getting-started");
-  const [name, setName] = useState(" ");
   const [email, setEmail] = useState(" ");
   const [password, setPassword] = useState(" ");
-  const [loginEmail, setloginEmail] = useState(" ");
-  const [loginPassword, setloginPassword] = useState(" ");
+  const [username, setusername] = useState("");
+  const [showPage, setShowPage] = useState("getting-started");
 
-  //
-
-  const signup = () => {
+  const handlesignup = () => {
     console.log("Button is being pressed!!");
     setShowPage("signup");
   };
@@ -29,175 +30,51 @@ export default function App() {
     setShowPage("getting-started");
   };
 
-  // GETTING STARTED PAGE
-  if (showPage === "getting-started") {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "stretch",
-          backgroundColor: "#ADD8E6",
-        }}
-      >
-        <Text style={{ marginLeft: 50, fontSize: 20, fontWeight: "bold" }}>
-          MY REACT NATIVE APPLICATION
-        </Text>
+  const dashboarddata = (name, email, password) => {
+    console.log("Button is being pressed!!");
+    setusername(name);
+    setEmail(email);
+    setPassword(password);
+    console.log("Name is:" + name);
+    console.log("Email is:" + email);
+    console.log("Password is:" + password);
+    handleLogin();
+  };
 
-        <Button title="SIGN UP" color="green" onPress={signup} />
-      </View>
-    );
-  }
-  //SIGN UP PAGE
-  else if (showPage === "signup") {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "stretch",
-          backgroundColor: "#ADD8E6",
-        }}
-      >
-        <Text
-          style={{
-            marginLeft: 120,
-            fontSize: 30,
-            fontWeight: "bold",
-            marginTop: 20,
-            marginBottom: 90,
-          }}
-        >
-          SIGN UP
-        </Text>
-
-        <TextInput
-          style={{
-            marginLeft: 70,
-            height: 60,
-            margin: 12,
-            borderWidth: 1,
-            padding: 10,
-            fontSize: 20,
-          }}
-          placeholder="Enter your Name:"
-          onChangeText={setName}
+  return (
+    <View style={{ flex: 1, justifyContent: "center" }}>
+      {showPage === "getting-started" && (
+        <Gettingstarted onsignUp={handlesignup} />
+      )}
+      {showPage === "signup" && <Signup oncompletionsignUp={dashboarddata} />}
+      {showPage === "login" && (
+        <Login
+          oncompletionlogin={dashboard}
+          email={email}
+          password={password}
         />
+      )}
+      {showPage === "dashboard" && (
+        <Dashboard onlogout={logout} userName={username} />
+      )}
+    </View>
+  );
 
-        <TextInput
-          style={{
-            marginLeft: 70,
-            height: 60,
-            margin: 12,
-            borderWidth: 1,
-            padding: 10,
-            fontSize: 20,
-          }}
-          placeholder="Enter your email:"
-          onChangeText={setEmail}
-        />
-        <TextInput
-          style={{
-            marginLeft: 70,
-            height: 60,
-            margin: 12,
-            borderWidth: 1,
-            padding: 10,
-            marginBottom: 20,
-            fontSize: 20,
-          }}
-          placeholder="Enter your password:"
-          secureTextEntry={true}
-          onChangeText={setPassword}
-        />
-
-        <TextInput
-          style={{
-            marginLeft: 70,
-            height: 60,
-            margin: 12,
-            borderWidth: 1,
-            padding: 10,
-            fontSize: 20,
-          }}
-          placeholder="confirm password:"
-          secureTextEntry={true}
-        />
-        <Button title="Complete SIGN UP" color="green" onPress={handleLogin} />
-      </View>
-    );
-  }
-  //LOGIN PAGE
-  else if (showPage === "login") {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "stretch",
-          backgroundColor: "#ADD8E6",
-        }}
-      >
-        <Text
-          style={{
-            marginLeft: 120,
-            fontSize: 30,
-            fontWeight: "bold",
-            marginTop: 20,
-            marginBottom: 90,
-          }}
-        >
-          This is our LOGIN page
-        </Text>
-
-        <TextInput
-          style={{
-            marginLeft: 70,
-            height: 60,
-            margin: 12,
-            borderWidth: 1,
-            padding: 10,
-            fontSize: 20,
-          }}
-          placeholder="Enter your email:"
-          onChangeText={setloginEmail}
-        />
-        <TextInput
-          style={{
-            marginLeft: 70,
-            height: 60,
-            margin: 12,
-            borderWidth: 1,
-            padding: 10,
-            marginBottom: 20,
-            fontSize: 20,
-          }}
-          placeholder="Enter your password:"
-          secureTextEntry={true}
-          onChangeText={setloginPassword}
-        />
-
-        <Button title="LOGIN" color="green" onPress={dashboard} />
-      </View>
-    );
-  }
-  //DASHBOARD PAGE
-  else if (showPage === "dashboard") {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "stretch",
-          backgroundColor: "#ADD8E6",
-        }}
-      >
-        <Text style={{ marginLeft: 50, fontSize: 20, fontWeight: "bold" }}>
-          THIS IS THE FINAL RESULT
-        </Text>
-
-        <Button title="LOGOUT" color="red" onPress={logout} />
-      </View>
-    );
-  }
+  // const setscreen = () => {
+  //   switch (showPage) {
+  //     case "getting-started":
+  //       return <Gettingstarted onsignUp={handlesignup} />;
+  //       break;
+  //     case "signup":
+  //       return <Signup oncompletionsignUp={Login} />;
+  //       break;
+  //     case "login":
+  //       return <Login oncompletionlogin={Dashboard} />;
+  //       break;
+  //     case "dashboard":
+  //       return <Dashboard onlogout={logout} />;
+  //       break;
+  //   }
+  // };
+  // return { setscreen()};
 }
