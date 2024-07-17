@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import { useState } from "react";
+// import { provider as PaperProvider } from "react-native-paper";
 
 import Gettingstarted from "./components/Gettingstarted";
 import Signup from "./components/Signup";
@@ -41,7 +42,53 @@ export default function App() {
     handleLogin();
   };
 
+  const DATA = [
+    {
+      id: "1",
+      title: "First Item",
+      image:
+        "https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/s/s/q/6-5-ck2948-110nike-9-nike-white-black-original-imagfw7t7jvcamtf-bb.jpeg?q=70&crop=false",
+      description: "This is the image for card 1 of shoe1.",
+    },
+    {
+      id: "2",
+      title: "Second Item",
+      image:
+        "https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/p/0/b/-original-imahyxv7eesckkbb.jpeg?q=70&crop=false",
+      description: "This is the image for card 2 of shoe2.",
+    },
+    {
+      id: "3",
+      title: "Third Item",
+      image:
+        "https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/d/7/x/-original-imah2czkut8ekujm.jpeg?q=70&crop=false",
+      description: "This is the image for card 3 of shoe3.",
+    },
+    {
+      id: "4",
+      title: "First Item",
+      image:
+        "https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/s/s/q/6-5-ck2948-110nike-9-nike-white-black-original-imagfw7t7jvcamtf-bb.jpeg?q=70&crop=false",
+      description: "This is the image for card 1 of shoe1.",
+    },
+    {
+      id: "5",
+      title: "Second Item",
+      image:
+        "https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/p/0/b/-original-imahyxv7eesckkbb.jpeg?q=70&crop=false",
+      description: "This is the image for card 2 of shoe2.",
+    },
+    {
+      id: "6",
+      title: "Third Item",
+      image:
+        "https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/d/7/x/-original-imah2czkut8ekujm.jpeg?q=70&crop=false",
+      description: "This is the image for card 3 of shoe3.",
+    },
+  ];
+
   return (
+    // <PaperProvider>
     <View style={{ flex: 1, justifyContent: "center" }}>
       {showPage === "getting-started" && (
         <Gettingstarted onsignUp={handlesignup} />
@@ -55,9 +102,10 @@ export default function App() {
         />
       )}
       {showPage === "dashboard" && (
-        <Dashboard onlogout={logout} userName={username} />
+        <Dashboard onlogout={logout} userName={username} DATA={DATA} />
       )}
     </View>
+    // </PaperProvider>
   );
 
   // const setscreen = () => {

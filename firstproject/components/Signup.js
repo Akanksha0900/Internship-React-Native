@@ -1,14 +1,28 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  ImageBackground,
+  Switch,
+} from "react-native";
 
 export default function Signup({ oncompletionsignUp }) {
-  //   const [name, setName] = useState(" ");
-  const [email, setEmail] = useState(" ");
-  const [password, setPassword] = useState(" ");
+  const image = require("../assets/gettingstarted.jpg");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState("#ADD8E6"); // Default color cyan
 
   function handleCompleteSignUp() {
-    oncompletionsignUp(name);
+    oncompletionsignUp(name, email, password);
+  }
+
+  function toggleBackgroundColor(value) {
+    const newColor = value ? "#ADD8E6" : "#D3D3D3"; // Cyan or light grey based on switch value
+    setBackgroundColor(newColor);
   }
 
   return (
@@ -17,9 +31,14 @@ export default function Signup({ oncompletionsignUp }) {
         flex: 1,
         justifyContent: "center",
         alignItems: "stretch",
-        backgroundColor: "#ADD8E6",
+        backgroundColor: backgroundColor,
       }}
     >
+      {/* <ImageBackground
+        source={image}
+        resizeMode="cover"
+        style={{ flex: 1, justifyContent: "center" }}
+      > */}
       <Text
         style={{
           marginLeft: 120,
@@ -87,11 +106,19 @@ export default function Signup({ oncompletionsignUp }) {
         placeholder="confirm password:"
         secureTextEntry={true}
       />
+
+      <Switch
+        style={{ marginLeft: 70, marginTop: 20 }}
+        value={backgroundColor === "#ADD8E6"}
+        onValueChange={toggleBackgroundColor}
+      />
+
       <Button
         title="Complete SIGN UP"
         color="green"
-        onPress={() => oncompletionsignUp(name, email, password)}
+        onPress={handleCompleteSignUp}
       />
+      {/* </ImageBackground> */}
     </View>
   );
 }

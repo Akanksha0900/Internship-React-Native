@@ -1,7 +1,16 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  ImageBackground,
+} from "react-native";
 import { useState } from "react";
+// import { Button, Card } from "react-native-paper";
 
 export default function Gettingstarted({ onsignUp }) {
+  const image = require("../assets/gettingstarted.jpg");
   return (
     <View
       style={{
@@ -11,11 +20,17 @@ export default function Gettingstarted({ onsignUp }) {
         backgroundColor: "#ADD8E6",
       }}
     >
-      <Text style={{ marginLeft: 50, fontSize: 20, fontWeight: "bold" }}>
-        MY REACT NATIVE APPLICATION
-      </Text>
+      <ImageBackground
+        source={image}
+        resizeMode="cover"
+        style={{ flex: 1, justifyContent: "center" }}
+      >
+        <Text style={{ marginLeft: 50, fontSize: 20, fontWeight: "bold" }}>
+          MY REACT NATIVE APPLICATION
+        </Text>
 
-      <Button title="SIGN UP" color="green" onPress={onsignUp} />
+        <Button title="signup" color="green" onPress={onsignUp} />
+      </ImageBackground>
     </View>
   );
 }
