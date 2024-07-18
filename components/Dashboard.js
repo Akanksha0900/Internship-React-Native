@@ -2,15 +2,15 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   TextInput,
   FlatList,
   ScrollView,
   ImageBackground,
   SafeAreaView,
 } from "react-native";
-import { Card, Title, Paragraph, Button } from "react-native-paper";
 import { useState } from "react";
-// import Card from "./card";
+import Card from "./card";
 
 export default function Dashboard({ onlogout, userName, DATA }) {
   const image = require("../assets/gettingstarted.jpg");
@@ -48,31 +48,17 @@ export default function Dashboard({ onlogout, userName, DATA }) {
 
         <ScrollView>
           {DATA.map((item) => (
-            <Card key={item.id} style={styles.card}>
-              <Card.Cover source={{ uri: item.image }} />
-              <Card.Content>
-                <Title>{item.title}</Title>
-                <Paragraph>{item.description}</Paragraph>
-              </Card.Content>
-            </Card>
+            <Card
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              image={item.image}
+            />
           ))}
         </ScrollView>
 
-        <Card.Actions>
-          <Button onPress={onlogout}>LOGOUT</Button>
-        </Card.Actions>
+        <Button title="LOGOUT" color="red" onPress={onlogout} />
       </ImageBackground>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    alignItems: "center",
-  },
-  card: {
-    width: "100%",
-    marginBottom: 16,
-  },
-});

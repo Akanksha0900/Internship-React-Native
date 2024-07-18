@@ -3,11 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   TextInput,
   ImageBackground,
   Switch,
 } from "react-native";
-import { Button, Card } from "react-native-paper";
 
 export default function Signup({ oncompletionsignUp }) {
   const image = require("../assets/gettingstarted.jpg");
@@ -20,17 +20,9 @@ export default function Signup({ oncompletionsignUp }) {
     oncompletionsignUp(name, email, password);
   }
 
-  function toggleBackgroundColor() {
-    setBackgroundColor(setRandomColor());
-  }
-
-  function setRandomColor() {
-    const hexChars = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += hexChars[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  function toggleBackgroundColor(value) {
+    const newColor = value ? "#ADD8E6" : "#D3D3D3"; // Cyan or light grey based on switch value
+    setBackgroundColor(newColor);
   }
 
   return (
@@ -49,12 +41,11 @@ export default function Signup({ oncompletionsignUp }) {
       > */}
       <Text
         style={{
-          color: "black",
-          marginLeft: 140,
+          marginLeft: 120,
           fontSize: 30,
           fontWeight: "bold",
-          marginTop: 30,
-          marginBottom: 20,
+          marginTop: 20,
+          marginBottom: 90,
         }}
       >
         SIGN UP
@@ -62,13 +53,12 @@ export default function Signup({ oncompletionsignUp }) {
 
       <TextInput
         style={{
-          marginLeft: 40,
+          marginLeft: 70,
           height: 60,
           margin: 12,
           borderWidth: 1,
           padding: 10,
           fontSize: 20,
-          borderRadius: 20,
         }}
         placeholder="Enter your Name:"
         onChangeText={setName}
@@ -77,13 +67,12 @@ export default function Signup({ oncompletionsignUp }) {
 
       <TextInput
         style={{
-          marginLeft: 40,
+          marginLeft: 70,
           height: 60,
           margin: 12,
           borderWidth: 1,
           padding: 10,
           fontSize: 20,
-          borderRadius: 20,
         }}
         placeholder="Enter your email:"
         onChangeText={setEmail}
@@ -91,14 +80,13 @@ export default function Signup({ oncompletionsignUp }) {
       />
       <TextInput
         style={{
-          marginLeft: 40,
+          marginLeft: 70,
           height: 60,
           margin: 12,
           borderWidth: 1,
           padding: 10,
           marginBottom: 20,
           fontSize: 20,
-          borderRadius: 20,
         }}
         placeholder="Enter your password:"
         secureTextEntry={true}
@@ -108,34 +96,28 @@ export default function Signup({ oncompletionsignUp }) {
 
       <TextInput
         style={{
-          marginLeft: 40,
+          marginLeft: 70,
           height: 60,
           margin: 12,
           borderWidth: 1,
           padding: 10,
           fontSize: 20,
-          borderRadius: 20,
         }}
         placeholder="confirm password:"
         secureTextEntry={true}
       />
 
-      {/* <Switch
+      <Switch
         style={{ marginLeft: 70, marginTop: 20 }}
         value={backgroundColor === "#ADD8E6"}
         onValueChange={toggleBackgroundColor}
-      /> */}
+      />
 
-      <Card.Actions>
-        <Button onPress={handleCompleteSignUp} mode="elevated">
-          Complete SIGN UP
-        </Button>
-      </Card.Actions>
-      <Card.Actions>
-        <Button onPress={toggleBackgroundColor} mode="elevated">
-          Click here to change
-        </Button>
-      </Card.Actions>
+      <Button
+        title="Complete SIGN UP"
+        color="green"
+        onPress={handleCompleteSignUp}
+      />
       {/* </ImageBackground> */}
     </View>
   );

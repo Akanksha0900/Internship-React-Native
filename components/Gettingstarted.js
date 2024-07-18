@@ -2,11 +2,12 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   TextInput,
   ImageBackground,
 } from "react-native";
 import { useState } from "react";
-import { Button, Card } from "react-native-paper";
+// import { Button, Card } from "react-native-paper";
 
 export default function Gettingstarted({ onsignUp }) {
   const image = require("../assets/gettingstarted.jpg");
@@ -24,13 +25,11 @@ export default function Gettingstarted({ onsignUp }) {
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
-        <Text style={{ marginLeft: 40, fontSize: 30, fontWeight: "bold" }}>
+        <Text style={{ marginLeft: 50, fontSize: 20, fontWeight: "bold" }}>
           MY REACT NATIVE APPLICATION
         </Text>
 
-        <Card.Actions>
-          <Button onPress={onsignUp}>signup</Button>
-        </Card.Actions>
+        <Button title="signup" color="green" onPress={onsignUp} />
       </ImageBackground>
     </View>
   );

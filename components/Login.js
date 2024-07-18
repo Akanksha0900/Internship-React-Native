@@ -2,11 +2,11 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   TextInput,
   ImageBackground,
 } from "react-native";
 import { useState } from "react";
-import { Button, Card } from "react-native-paper";
 
 export default function Login({ oncompletionlogin, email, password }) {
   const image = require("../assets/gettingstarted.jpg");
@@ -35,49 +35,43 @@ export default function Login({ oncompletionlogin, email, password }) {
       >
         <Text
           style={{
-            marginLeft: 70,
+            marginLeft: 120,
             fontSize: 30,
             fontWeight: "bold",
             marginTop: 20,
-            marginBottom: 40,
-            borderRadius: 20,
+            marginBottom: 90,
           }}
         >
-          WELCOME BACK!! LOGIN
+          LOGIN page
         </Text>
 
         <TextInput
           style={{
-            marginLeft: 40,
+            marginLeft: 70,
             height: 60,
             margin: 12,
             borderWidth: 1,
             padding: 10,
             fontSize: 20,
-            borderRadius: 20,
           }}
           placeholder="Enter your email:"
           onChangeText={setloginEmail}
         />
         <TextInput
           style={{
-            marginLeft: 40,
+            marginLeft: 70,
             height: 60,
             margin: 12,
             borderWidth: 1,
             padding: 10,
             marginBottom: 20,
             fontSize: 20,
-            borderRadius: 20,
           }}
           placeholder="Enter your password:"
           secureTextEntry={true}
           onChangeText={setloginPassword}
         />
-
-        <Card.Actions>
-          <Button onPress={validate}>LOGIN</Button>
-        </Card.Actions>
+        <Button title="LOGIN" color="green" onPress={validate} />
       </ImageBackground>
     </View>
   );
