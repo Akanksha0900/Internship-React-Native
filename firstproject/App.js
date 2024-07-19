@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useState } from "react";
-// import { provider as PaperProvider } from "react-native-paper";
-
+import { UserProvider } from "./context/UserContext";
+import Favorites from "./components/Favorites";
 import Gettingstarted from "./components/Gettingstarted";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import { Provider as PaperProvider } from "react-native-paper";
 
 export default function App() {
   const [email, setEmail] = useState(" ");
@@ -22,13 +23,19 @@ export default function App() {
     console.log("Button is being pressed!!");
     setShowPage("login");
   };
+
   const dashboard = () => {
     console.log("Button is being pressed!!");
     setShowPage("dashboard");
   };
-  const logout = () => {
+
+  const handleLogout = () => {
     console.log("Button is being pressed!!");
     setShowPage("getting-started");
+  };
+
+  const handleFavorites = () => {
+    setShowPage("Favorites");
   };
 
   const dashboarddata = (name, email, password) => {
@@ -88,41 +95,33 @@ export default function App() {
   ];
 
   return (
-    // <PaperProvider>
-    <View style={{ flex: 1, justifyContent: "center" }}>
-      {showPage === "getting-started" && (
-        <Gettingstarted onsignUp={handlesignup} />
-      )}
-      {showPage === "signup" && <Signup oncompletionsignUp={dashboarddata} />}
-      {showPage === "login" && (
-        <Login
-          oncompletionlogin={dashboard}
-          email={email}
-          password={password}
-        />
-      )}
-      {showPage === "dashboard" && (
-        <Dashboard onlogout={logout} userName={username} DATA={DATA} />
-      )}
-    </View>
-    // </PaperProvider>
+    <PaperProvider>
+      <UserProvider>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          {showPage === "getting-started" && (
+            <Gettingstarted onsignUp={handlesignup} />
+          )}
+          {showPage === "signup" && (
+            <Signup oncompletionsignUp={dashboarddata} />
+          )}
+          {showPage === "login" && (
+            <Login
+              oncompletionlogin={dashboard}
+              email={email}
+              password={password}
+            />
+          )}
+          {showPage === "dashboard" && (
+            <Dashboard
+              onLogout={handleLogout}
+              userName={username}
+              onFavorites={handleFavorites}
+              DATA={DATA}
+            />
+          )}
+          {showPage === "Favorites" && <Favorites onDashboard={dashboard} />}
+        </View>
+      </UserProvider>
+    </PaperProvider>
   );
-
-  // const setscreen = () => {
-  //   switch (showPage) {
-  //     case "getting-started":
-  //       return <Gettingstarted onsignUp={handlesignup} />;
-  //       break;
-  //     case "signup":
-  //       return <Signup oncompletionsignUp={Login} />;
-  //       break;
-  //     case "login":
-  //       return <Login oncompletionlogin={Dashboard} />;
-  //       break;
-  //     case "dashboard":
-  //       return <Dashboard onlogout={logout} />;
-  //       break;
-  //   }
-  // };
-  // return { setscreen()};
 }

@@ -1,70 +1,79 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  FlatList,
-  ScrollView,
-  ImageBackground,
-  SafeAreaView,
-} from "react-native";
-import { Card, Title, Paragraph, Button } from "react-native-paper";
-import { useState } from "react";
-// import Card from "./card";
+import React, { useContext } from "react";
+import { Text, ScrollView, StyleSheet } from "react-native";
+import { Card, Title, Paragraph, Button, IconButton } from "react-native-paper";
+import { UserContext } from "../context/UserContext";
 
-export default function Dashboard({ onlogout, userName, DATA }) {
-  const image = require("../assets/gettingstarted.jpg");
-  const Item = ({ item }) => (
-    <Card
-      title={item.title}
-      description={item.description}
-      image={item.image}
-    />
-  );
+const Dashboard = ({ onLogout, userName, onFavorites, DATA }) => {
+  const { favorites, addFavorite, removeFavorite } = useContext(UserContext);
+
+  const toggleFavorite = (product) => {
+    if (favorites.some((item) => item.id === product.id)) {
+      removeFavorite(product.id);
+    } else {
+      addFavorite(product);
+    }
+  };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "stretch",
-        backgroundColor: "#ADD8E6",
-      }}
-    >
-      <ImageBackground
-        source={image}
-        resizeMode="cover"
-        style={{ flex: 1, justifyContent: "center" }}
+    <>
+      <Text
+        style={{
+          marginLeft: 40,
+          marginTop: 50,
+          fontWeight: "bold",
+          fontSize: 30,
+          fontStyle: "italic",
+        }}
       >
-        <Text style={{ marginLeft: 50, fontSize: 20, fontWeight: "bold" }}>
-          WELCOME {userName}
-        </Text>
-
-        {/* <FlatList
-        data={DATA}
-        renderItem={Item}
-        keyExtractor={(item) => item.id}
-      /> */}
-
-        <ScrollView>
-          {DATA.map((item) => (
-            <Card key={item.id} style={styles.card}>
-              <Card.Cover source={{ uri: item.image }} />
-              <Card.Content>
-                <Title>{item.title}</Title>
-                <Paragraph>{item.description}</Paragraph>
-              </Card.Content>
-            </Card>
-          ))}
-        </ScrollView>
-
-        <Card.Actions>
-          <Button onPress={onlogout}>LOGOUT</Button>
-        </Card.Actions>
-      </ImageBackground>
-    </View>
+        Welcome, {userName}
+      </Text>
+      <Button
+        onPress={onFavorites}
+        style={{
+          margin: 20,
+          padding: 5,
+          borderRadius: 25,
+        }}
+      >
+        View Favorites
+      </Button>
+      <ScrollView contentContainerStyle={styles.container}>
+        {DATA.map((item) => (
+          <Card key={item.id} style={styles.card}>
+            <Card.Cover source={{ uri: item.image }} />
+            <Card.Content>
+              <Title>{item.title}</Title>
+              <Paragraph>{item.description}</Paragraph>
+            </Card.Content>
+            <Card.Actions>
+              <IconButton
+                style={{ color: "red" }}
+                icon={
+                  favorites.some((fav) => fav.id === item.id)
+                    ? "heart"
+                    : "heart-outline"
+                }
+                onPress={() => toggleFavorite(item)}
+              />
+            </Card.Actions>
+          </Card>
+        ))}
+      </ScrollView>
+      <Card.Actions>
+        <Button
+          onPress={onLogout}
+          style={{
+            marginRight: 150,
+            padding: 5,
+            borderRadius: 25,
+          }}
+        >
+          Log Out
+        </Button>
+      </Card.Actions>
+    </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -76,3 +85,5 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 });
+
+export default Dashboard;
