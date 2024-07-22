@@ -1,16 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, ScrollView, StyleSheet } from "react-native";
 import { Card, Title, Paragraph, Button, IconButton } from "react-native-paper";
 import { UserContext } from "../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Dashboard = ({ navigation }) => {
+  const [name, setName] = useState("");
   const { favorites, addFavorite, removeFavorite } = useContext(UserContext);
 
-  const route = useRoute();
-  const name = route.params.name;
+  useEffect(() => {
+    async function fetchName() {
+      const userDetailString = await AsyncStorage.getItem("userDetail"); //Fetches data in string format
+
+      const userDetail = userDetailString ? JSON.parse(userDetailString) : {}; //converts the string format data into object if not empty else it creates an empty object.
+      setName(userDetail.name);
+    }
+    fetchName();
+  }, []); //used to fetch name from the async storage
+
   const toggleFavorite = (product) => {
     if (favorites.some((item) => item.id === product.id)) {
       removeFavorite(product.id);
@@ -22,9 +32,7 @@ const Dashboard = ({ navigation }) => {
   const handleGotoFavoritesPage = () => {
     console.log("I m from Dashboard page");
 
-    navigation.navigate("Favorites", {
-      name,
-    });
+    navigation.navigate("Favorites");
   };
 
   const handleLogoutPage = () => {

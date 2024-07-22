@@ -8,15 +8,10 @@ import { useRoute } from "@react-navigation/native";
 
 const Favorites = ({ navigation }) => {
   const { favorites } = useContext(UserContext);
-  const route = useRoute();
-  const name = route.params.name;
-
   const handleGotoDashboardPage = () => {
     console.log("I m from Favorites page");
 
-    navigation.navigate("Dashboard", {
-      name,
-    });
+    navigation.navigate("Dashboard");
   };
 
   return (

@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Switch,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Button, Card } from "react-native-paper";
@@ -14,14 +15,18 @@ import { Button, Card } from "react-native-paper";
 export default function Signup({ navigation }) {
   const image = require("../assets/gettingstarted.jpg");
 
-  const handleGotoLoginPage = () => {
+  const handleGotoLoginPage = async () => {
+    await AsyncStorage.setItem(
+      "userDetail",
+      JSON.stringify({
+        name,
+        email,
+        password,
+      })
+    );
     console.log("I m from signup page");
 
-    navigation.navigate("Login", {
-      name,
-      email,
-      password,
-    });
+    navigation.navigate("Login");
   };
 
   const [email, setEmail] = useState("");
