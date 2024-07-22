@@ -6,10 +6,17 @@ import {
   ImageBackground,
 } from "react-native";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Button, Card } from "react-native-paper";
 
-export default function Gettingstarted({ onsignUp }) {
+export default function Gettingstarted({ navigation }) {
   const image = require("../assets/gettingstarted.jpg");
+
+  const handleGotoSignUpPage = () => {
+    console.log("I m from gettingstarted page");
+    navigation.navigate("Signup");
+  };
   return (
     <View
       style={{
@@ -29,7 +36,7 @@ export default function Gettingstarted({ onsignUp }) {
         </Text>
 
         <Card.Actions>
-          <Button onPress={onsignUp}>signup</Button>
+          <Button onPress={handleGotoSignUpPage}>signup</Button>
         </Card.Actions>
       </ImageBackground>
     </View>

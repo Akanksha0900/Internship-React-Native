@@ -5,14 +5,32 @@ import {
   TextInput,
   ImageBackground,
 } from "react-native";
+import { useRoute } from "@react-navigation/native";
+
 import { useState } from "react";
 import { Button, Card } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function Login({ oncompletionlogin, email, password }) {
+export default function Login({ navigation }) {
   const image = require("../assets/gettingstarted.jpg");
+
+  const route = useRoute();
+  const name = route.params.name;
+  const email = route.params.email;
+  const password = route.params.password;
+
+  const handleGotoDashboardPage = () => {
+    console.log("I m from login page");
+
+    navigation.navigate("Dashboard", {
+      name,
+    });
+  };
+
   function validate() {
     if (email === loginEmail && password === loginPassword) {
-      oncompletionlogin();
+      handleGotoDashboardPage();
     } else {
       alert("INVALID CREDENTIAL");
     }

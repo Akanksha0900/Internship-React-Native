@@ -7,10 +7,23 @@ import {
   ImageBackground,
   Switch,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Button, Card } from "react-native-paper";
 
-export default function Signup({ oncompletionsignUp }) {
+export default function Signup({ navigation }) {
   const image = require("../assets/gettingstarted.jpg");
+
+  const handleGotoLoginPage = () => {
+    console.log("I m from signup page");
+
+    navigation.navigate("Login", {
+      name,
+      email,
+      password,
+    });
+  };
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -127,7 +140,7 @@ export default function Signup({ oncompletionsignUp }) {
       /> */}
 
       <Card.Actions>
-        <Button onPress={handleCompleteSignUp} mode="elevated">
+        <Button onPress={handleGotoLoginPage} mode="elevated">
           Complete SIGN UP
         </Button>
       </Card.Actions>
