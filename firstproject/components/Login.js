@@ -9,22 +9,15 @@ import { useRoute } from "@react-navigation/native";
 
 import { useState } from "react";
 import { Button, Card } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({ navigation }) {
   const image = require("../assets/gettingstarted.jpg");
 
-  // const route = useRoute();
-  // const name = route.params.name;
-  // const email = route.params.email;
-  // const password = route.params.password;
-
   const handleGotoDashboardPage = () => {
     console.log("I m from login page");
 
-    navigation.navigate("Dashboard");
+    navigation.navigate("DashboardStack");
   };
 
   async function validate() {
@@ -39,8 +32,8 @@ export default function Login({ navigation }) {
       alert("INVALID CREDENTIAL");
     }
   }
-  const [loginEmail, setloginEmail] = useState(" ");
-  const [loginPassword, setloginPassword] = useState(" ");
+  const [loginEmail, setloginEmail] = useState("");
+  const [loginPassword, setloginPassword] = useState("");
   return (
     <View
       style={{

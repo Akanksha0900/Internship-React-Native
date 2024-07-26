@@ -2,14 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { Text, ScrollView, StyleSheet } from "react-native";
 import { Card, Title, Paragraph, Button, IconButton } from "react-native-paper";
 import { UserContext } from "../context/UserContext";
-import { useNavigation } from "@react-navigation/native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Dashboard = ({ navigation }) => {
   const [name, setName] = useState("");
-  const { favorites, addFavorite, removeFavorite } = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
+  const { favorites } = state;
 
   useEffect(() => {
     async function fetchName() {
@@ -23,9 +21,9 @@ const Dashboard = ({ navigation }) => {
 
   const toggleFavorite = (product) => {
     if (favorites.some((item) => item.id === product.id)) {
-      removeFavorite(product.id);
+      dispatch({ type: "REMOVE_FROM_FAVORITE", payload: product.id }); //dispatch is like a function which passes the data to the reducer func to perform further function.Here we pass product id to the reducer which then filters out this element & removes from the favorites array
     } else {
-      addFavorite(product);
+      dispatch({ type: "ADD_TO_FAVORITE", payload: product }); //Here, the whole product is dispatched through payload to the reducer to add to the favorites array
     }
   };
 

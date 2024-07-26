@@ -2,12 +2,10 @@ import React, { useContext } from "react";
 import { Text, ScrollView, StyleSheet } from "react-native";
 import { Card, Title, Paragraph, Button, IconButton } from "react-native-paper"; // Import IconButton from react-native-paper
 import { UserContext } from "../context/UserContext";
-import { useNavigation } from "@react-navigation/native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRoute } from "@react-navigation/native";
 
 const Favorites = ({ navigation }) => {
-  const { favorites } = useContext(UserContext);
+  const { state } = useContext(UserContext);
+  const { favorites } = state;
   const handleGotoDashboardPage = () => {
     console.log("I m from Favorites page");
 

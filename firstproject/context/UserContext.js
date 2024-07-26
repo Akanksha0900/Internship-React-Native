@@ -1,23 +1,17 @@
-import React, { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
+import { favoriteReducer } from "../globalstate/Favorite.reducer";
+const initialState = {
+  favorites: [], //update from favorite.reducer
+};
 
-export const UserContext = createContext();
+export const UserContext = createContext(initialState);
 
 export const UserProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState([]);
+  const [state, dispatch] = useReducer(favoriteReducer, initialState);
 
-  const addFavorite = (product) => {
-    setFavorites([...favorites, product]);
-  };
-
-  const removeFavorite = (productId) => {
-    setFavorites(favorites.filter((item) => item.id !== productId));
-  };
-
-  const value = {
-    favorites,
-    addFavorite,
-    removeFavorite,
-  };
-
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ state, dispatch }}>
+      {children}
+    </UserContext.Provider>
+  );
 };

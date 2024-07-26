@@ -17,8 +17,10 @@ export default function Signup({ navigation }) {
 
   const handleGotoLoginPage = async () => {
     await AsyncStorage.setItem(
+      //data fetch
       "userDetail",
       JSON.stringify({
+        //stores and converts objects to string
         name,
         email,
         password,
